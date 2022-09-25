@@ -12,7 +12,7 @@
 
 #include "get_next_line.h"
 
-size_t	ft_strlen(char *str)
+size_t	ft_strlen(const char *str)
 {
 	size_t	size;
 
@@ -52,7 +52,7 @@ char	*ft_strdup(const char *s)
 	len = ft_strlen(s) + 1;
 	cpy = malloc(len * sizeof(char));
 	if (cpy)
-		ft_strlcpy(cpy, s, len);
+		ft_memcpy(cpy, s, len);
 	return (cpy);
 }
 
