@@ -1,8 +1,6 @@
 #include "../get_next_line.h"
 # include "minunit.h"
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
+# include "tests.h"
 
 # define FIRST_LINE_EXPECTED "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent interdum ipsum vitae diam pharetra venenatis. Curabitur ornare accumsan eros. Morbi auctor nisl lacus, quis luctus nisi ultrices vitae. Praesent nisi nisi, congue vitae commodo id, porta in risus. Quisque vel lacinia est. Fusce gravida interdum nibh, ac convallis lorem dapibus ut. Morbi dolor ex, cursus vitae diam a, ultrices bibendum magna. Donec sollicitudin libero vitae est venenatis aliquet. Donec a lorem nec turpis ultricies vestibulum ultricies sit amet lectus. Nam vitae lectus elit. Cras vitae elit eget mi tempus vestibulum tempor nec purus."
 # define SECOND_LINE_EXPECTED "Suspendisse rhoncus viverra molestie. Integer placerat quam risus, at ultricies justo pulvinar eu. Nulla mattis ex in euismod iaculis. Ut at ante eget metus porttitor viverra a sit amet justo. Pellentesque volutpat, nibh eu finibus accumsan, lacus nibh blandit sem, vel efficitur nisi augue at massa. Ut non vestibulum ante, ac consequat tellus. In a erat ligula. Vestibulum a porta est. Etiam mi metus, bibendum nec elit et, dictum accumsan nibh. Pellentesque viverra lacus ipsum, et posuere turpis lobortis in. Cras eu egestas turpis. Pellentesque placerat fringilla malesuada."
