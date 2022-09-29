@@ -12,16 +12,14 @@
 
 #include "get_next_line.h"
 
-char	*ft_strjoin(char *s1, char *s2)
+char	*ft_strjoin(char *s1, char *s2, int s1_len)
 {
 	char	*result;
 	size_t	result_len;
-	size_t	s1_len;
 	size_t	s2_len;
 
-	s1_len = ft_strlen(s1);
 	s2_len = ft_strlen(s2);
-	result_len = s1_len + s2_len;
+	result_len = (size_t)s1_len + s2_len;
 	result = malloc((result_len + 1) * sizeof(char));
 	if (result == NULL)
 		return (NULL);
@@ -30,8 +28,6 @@ char	*ft_strjoin(char *s1, char *s2)
 	while (*s2)
 		*result++ = *s2++;
 	*result = 0;
-	free(s1 - s1_len);
-	free(s2 - s2_len);
 	return (result - result_len);
 }
 
@@ -50,47 +46,54 @@ char	*get_buffer(int fd)
 	return (buffer);
 }
 
-char	ft_isline(char *str)
-{
-	while (*str)
-		if (*str++ == '\n')
-			return (1);
-	return (0);
-}
-
 char	*read_buffer(char *buffer)
 {
-	char	*jumpline;
-	char	*str;
+	char	*readed;
+	char	*tmp;
+	char	*buffer_trav;
+	size_t	len;
 
-	str = NULL;
-	jumpline = ft_strchr(buffer, '\n');
-	if (jumpline)
+	readed = NULL;
+	buffer_trav = buffer;
+	len = 0;
+	while (*buffer_trav)
 	{
-		str = ft_substr(buffer, 0, jumpline - buffer + 1);
-		ft_memcpy(buffer, (jumpline + 1), ft_strlen(jumpline + 1) + 1);
-		return (str);
+		tmp = readed;
+		readed = ft_calloc(len + 2, sizeof(char));
+		if (len == 0)
+		{
+			readed[0] = *buffer_trav++;
+			len++;
+			continue ;
+		}
+		ft_memcpy(readed, tmp, len);
+		readed[len++] = *buffer_trav++;
+		free(tmp);
 	}
-	str = ft_strdup(buffer);
-	*buffer = 0;
-	return (str);
+	return (readed);
 }
 
 char	*get_next_line(int fd)
 {
 	char	*buffer;
 	char	*line;
+	char	*readed;
+	char	*tmp;
 
-	if (BUFFER_SIZE < 0)
-		return (NULL);
 	buffer = get_buffer(fd);
 	line = NULL;
+	int i = 0;
 	while (buffer != NULL)
 	{
 		if (line == NULL)
 			line = ft_strdup("");
-		line = ft_strjoin(line, read_buffer(buffer));
-		if (ft_strchr(line, '\n'))
+		readed = read_buffer(buffer);
+		tmp = line;
+		line = ft_strjoin(tmp, readed, i);
+		i += ft_strlen(readed);
+		free(tmp);
+		free(readed);
+		if (line[i - 1] == '\n')
 			return (line);
 		buffer = get_buffer(fd);
 	}
